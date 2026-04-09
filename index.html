@@ -100,6 +100,7 @@ aside::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
 .grade-tab:hover{border-color:var(--ac);color:var(--ac)}
 .grade-tab.on{border-color:var(--ac);background:var(--ac);color:#fff}
 .sub-list{display:flex;flex-direction:column;gap:2px;height:155px!important;overflow:hidden;flex-shrink:0;margin-bottom:0;}
+body[data-mode="middle"] .sub-list{height:190px!important;}
 .sub-btn{padding:4px 7px;border-radius:6px;cursor:pointer;border:1.5px solid var(--bd);background:transparent;color:var(--sub);font-family:inherit;font-size:10px;transition:all .14s;text-align:left;line-height:1.3}
 .sub-btn:hover,.sub-btn.on{border-color:var(--ac);background:var(--ac-lt);color:var(--ac);font-weight:600}
 .sub-btn .sd{font-size:8px;color:var(--dim);margin-top:1px;font-weight:400}
@@ -460,9 +461,9 @@ details summary::-webkit-details-marker{display:none}
     <div id="spTitle" class="sp-title">중학교 수학 문제 생성기</div>
     <div class="sp-sub">2022 개정 교육과정</div>
     <div id="spGrades">
-      <div class="sp-grade-row"><span class="sp-badge-lg">📐 중1 수학</span></div>
-      <div class="sp-grade-row"><span class="sp-badge-lg">📊 중2 수학</span></div>
-      <div class="sp-grade-row" style="margin-bottom:18px"><span class="sp-badge-lg">∫ 중3 수학</span></div>
+      <div class="sp-grade-row"><span class="sp-badge-lg">📐 중1 수학1</span></div>
+      <div class="sp-grade-row"><span class="sp-badge-lg">📊 중2 수학2</span></div>
+      <div class="sp-grade-row" style="margin-bottom:18px"><span class="sp-badge-lg">∫ 중3 수학3</span></div>
     </div>
     <div class="sp-badges">
       <span class="sp-badge">🤖 AI 서술형 채점</span>
@@ -533,7 +534,7 @@ details summary::-webkit-details-marker{display:none}
       </div>
     </div>
     <div>
-      <div class="fl">단원</div>
+      <div class="fl" id="unitLabel">단원</div>
       <div id="subjG" style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap"></div>
     <div class="sub-list" id="subG"></div>
       <div class="mode-btns">
@@ -648,9 +649,9 @@ function switchSplashMode(mode) {
     icon.innerText = '√';
     icon.style.fontStyle = 'italic';
     grades.innerHTML = `
-      <div class="sp-grade-row"><span class="sp-badge-lg">📐 중1 수학</span></div>
-      <div class="sp-grade-row"><span class="sp-badge-lg">📊 중2 수학</span></div>
-      <div class="sp-grade-row" style="margin-bottom:18px"><span class="sp-badge-lg">∫ 중3 수학</span></div>
+      <div class="sp-grade-row"><span class="sp-badge-lg">📐 중1 수학1</span></div>
+      <div class="sp-grade-row"><span class="sp-badge-lg">📊 중2 수학2</span></div>
+      <div class="sp-grade-row" style="margin-bottom:18px"><span class="sp-badge-lg">∫ 중3 수학3</span></div>
     `;
     btnMid.classList.add('on');
     btnHigh.classList.remove('on');
@@ -671,6 +672,8 @@ function switchSplashMode(mode) {
 
 function returnToSplash() {
   document.getElementById('splash').classList.remove('hidden');
+  const adminToggle = document.getElementById('adminToggle');
+  if(adminToggle) adminToggle.style.display = 'block';
 }
 
 function startApp(mode) {
@@ -695,6 +698,8 @@ function startApp(mode) {
   // 앱 시작 로직
   currentMode = mode;
   document.getElementById('splash').classList.add('hidden');
+  const adminToggle = document.getElementById('adminToggle');
+  if(adminToggle) adminToggle.style.display = 'none';
   initByMode(mode);
 }
 
@@ -1298,7 +1303,103 @@ const HIGH_GRADE_UNITS = {
     }
   ]
 };
-const MID_GRADE_UNITS = JSON.parse(JSON.stringify(HIGH_GRADE_UNITS).replace(/고1/g, "중1").replace(/고2/g, "중2").replace(/고3/g, "중3"));
+const MID_GRADE_UNITS = {
+  "중1": [
+    {
+      subject: "수와 연산",
+      units: [
+        { v: "소인수분해", d: "소인수분해·약수와 배수" },
+        { v: "정수와 유리수", d: "정수·유리수의 계산" }
+      ]
+    },
+    {
+      subject: "변화와 관계",
+      units: [
+        { v: "문자의 사용과 식", d: "문자식의 이해·식의 값" },
+        { v: "일차방정식", d: "일차방정식의 풀이와 활용" },
+        { v: "좌표평면과 그래프", d: "좌표·그래프 해석" }
+      ]
+    },
+    {
+      subject: "도형과 측정",
+      units: [
+        { v: "기본도형", d: "점·선·각의 기본 성질" },
+        { v: "작도와 합동", d: "작도·합동조건" },
+        { v: "평면도형의 성질", d: "다각형·원의 기본 성질" },
+        { v: "입체도형의 성질", d: "다면체·회전체의 성질" }
+      ]
+    },
+    {
+      subject: "자료와 가능성",
+      units: [
+        { v: "대푯값", d: "평균·중앙값·최빈값" },
+        { v: "도수분포표와 상대도수", d: "도수분포·상대도수 해석" }
+      ]
+    }
+  ],
+  "중2": [
+    {
+      subject: "수와 연산",
+      units: [
+        { v: "유리수와 순환소수", d: "유리수·순환소수의 관계" }
+      ]
+    },
+    {
+      subject: "변화와 관계",
+      units: [
+        { v: "식의 계산", d: "다항식의 덧셈·뺄셈·곱셈" },
+        { v: "일차부등식", d: "일차부등식의 풀이" },
+        { v: "연립일차방정식", d: "연립방정식의 풀이와 활용" },
+        { v: "일차함수와 그 그래프", d: "일차함수의 성질과 그래프" },
+        { v: "일차함수와 일차방정식의 관계", d: "그래프와 해의 관계" }
+      ]
+    },
+    {
+      subject: "도형의 측정",
+      units: [
+        { v: "삼각형과 사각형의 성질", d: "내각·외각·평행선 성질" },
+        { v: "도형의 닮음", d: "닮음비·닮음의 활용" },
+        { v: "피타고라스의 정리", d: "직각삼각형의 변의 관계" }
+      ]
+    },
+    {
+      subject: "자료와 가능성",
+      units: [
+        { v: "경우의 수와 확률", d: "경우의 수 계산·확률" }
+      ]
+    }
+  ],
+  "중3": [
+    {
+      subject: "수와 연산",
+      units: [
+        { v: "제곱근과 실수", d: "제곱근·무리수·실수" }
+      ]
+    },
+    {
+      subject: "변화와 관계",
+      units: [
+        { v: "다항식의 곱셈과 인수분해", d: "곱셈공식·인수분해" },
+        { v: "이차방정식", d: "이차방정식의 풀이와 활용" },
+        { v: "이차함수와 그 그래프", d: "이차함수의 성질과 그래프" }
+      ]
+    },
+    {
+      subject: "도형의 측정",
+      units: [
+        { v: "삼각비", d: "삼각비의 뜻과 활용" },
+        { v: "원의 성질", d: "원과 접선·현의 성질" }
+      ]
+    },
+    {
+      subject: "자료와 가능성",
+      units: [
+        { v: "산포도", d: "분산·표준편차 등 산포 해석" },
+        { v: "상자그림과 산점도", d: "상자그림·산점도 해석" }
+      ]
+    }
+  ]
+};
 let GRADE_UNITS = HIGH_GRADE_UNITS;
 
 const st = {grade:"고1",sub:"다항식",lv:2,lvL:"기본",type:"OX형",cnt:3,mode:"high"};
@@ -1309,6 +1410,8 @@ function startApp(mode) {
   document.body.dataset.mode = mode;
   const splash = document.getElementById('splash');
   if (splash) splash.classList.add('hidden');
+  const adminToggle = document.getElementById('adminToggle');
+  if (adminToggle) adminToggle.style.display = 'none';
   
   // 데이터 스위칭
   if (mode === 'middle') {
@@ -1320,12 +1423,15 @@ function startApp(mode) {
     document.querySelector('.logo-tx').textContent = "중학교 수학 문제 생성기";
     document.querySelector('.logo-sb').textContent = "2022 개정 교육과정 · 중1 · 중2 · 중3";
     document.title = "중학교 수학 문제 생성기";
+    const unitLabelEl = document.getElementById('unitLabel');
+    if(unitLabelEl) unitLabelEl.textContent = "영역/단원";
     document.getElementById('gradeG').innerHTML = `
       <button class="grade-tab on" data-g="중1">중1</button>
       <button class="grade-tab" data-g="중2">중2</button>
       <button class="grade-tab" data-g="중3">중3</button>
     `;
   } else {
+    // 경칩 수정: 전역 객체를 직접 참조하여 외부 유입 데이터 실시간 반영
     OX_BANK = HIGH_OX_BANK;
     BANK = HIGH_BANK;
     GRADE_UNITS = HIGH_GRADE_UNITS;
@@ -1334,6 +1440,8 @@ function startApp(mode) {
     document.querySelector('.logo-tx').textContent = "고등학교 수학 문제 생성기";
     document.querySelector('.logo-sb').textContent = "2022 개정 교육과정 · 고1 · 고2 · 고3";
     document.title = "고등학교 수학 문제 생성기";
+    const unitLabelEl = document.getElementById('unitLabel');
+    if(unitLabelEl) unitLabelEl.textContent = "단원";
     document.getElementById('gradeG').innerHTML = `
       <button class="grade-tab on" data-g="고1">고1</button>
       <button class="grade-tab" data-g="고2">고2</button>
@@ -1374,9 +1482,11 @@ function buildSubList(grade){
   const subjects=GRADE_UNITS[grade];
   const subjCont=document.getElementById('subjG');
   subjCont.innerHTML='';
+  const isMiddle = /^중/.test(grade);
   subjects.forEach((subj,si)=>{
     const sb=document.createElement('button');
     sb.className='grade-tab'+(si===0?' on':'');
+    sb.style.flex = isMiddle ? '0 0 calc(50% - 2px)' : '1';
     sb.textContent=subj.subject;
     sb.dataset.si=si;
     sb.addEventListener('click',()=>{
@@ -2930,54 +3040,7 @@ const HIGH_RAND_GENS = {
     }
    ]
   },
-  "도형의 방정식": {
-   1: [
-    ()=>{
-      const [x1,y1,x2,y2]=[ri(-5,5),ri(-5,5),ri(-5,5),ri(-5,5)];
-      const d2=(x1-x2)**2 + (y1-y2)**2;
-      const ans=`$\\sqrt{${d2}}$`;
-      return {type:["객관식","단답형","서술형"],q:`두 점 $A(${x1}, ${y1})$, $B(${x2}, ${y2})$ 사이의 거리를 구하시오.`,choices:[ans,`$\\sqrt{${d2+1}}$`,`$\\sqrt{${Math.max(1,d2-1)}}$`,`$${Math.round(Math.sqrt(d2))}$`,`$${d2}$`],ci:0,ans,sa:Math.sqrt(d2).toFixed(2),sol:`두 점 사이의 거리 공식: $\\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2} = \\sqrt{(${x2-x1})^2 + (${y2-y1})^2} = \\sqrt{${d2}}$`,hints:["거리 공식: $\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$","가로 차이와 세로 차이의 제곱 합"],terms:"두 점 사이의 거리",std:"[10공수02-01] 두 점 사이의 거리"};
-    }
-   ],
-   2: [
-    ()=>{
-      const [x1,y1,m]=[ri(-3,3),ri(-3,3),ri(-3,3)];
-      if(m===0) return null;
-      const c = y1 - m*x1;
-      const ans = `$y=${m===1?'':m===-1?'-':m}x${sp(c)}$`;
-      return {type:["객관식","단답형","서술형"],q:`점 $(${x1}, ${y1})$을 지나고 기울기가 $${m}$인 직선의 방정식을 구하시오.`,choices:[ans,`$y=${m}x${sp(c+1)}$`,`$y=${m}x${sp(c-1)}$`,`$y=${m+1}x${sp(c)}$`,`$y=${m-1}x${sp(c)}$`],ci:0,ans,sa:ans.replace(/\$/g,''),sol:`직선의 방정식: $y-${y1}=${m}(x-${x1})$\n$y=${m}x${sp(-m*x1)}${sp(y1)} = y=${m}x${sp(c)}$`,hints:["공식: $y-y_1=m(x-x_1)$","정리하여 $y=mx+n$ 꼴로 만들기"],terms:"직선의 방정식",std:"[10공수02-02] 직선의 방정식"};
-    }
-   ],
-   3: [
-    ()=>{
-      const [a,b,c]=[ri(1,4),ri(1,4),ri(-5,5)];
-      const [px,py]=[ri(-3,3),ri(-3,3)];
-      const nc = -(a*px + b*py);
-      const ans = `$${a}x+${b}y${sp(nc)}=0$`;
-      return {type:["객관식","단답형","서술형"],q:`직선 $${a}x+${b}y${sp(c)}=0$에 평행하고 점 $(${px}, ${py})$를 지나는 직선의 방정식을 구하시오.`,choices:[ans,`$${a}x+${b}y${sp(nc+1)}=0$`,`$${a}x+${b}y${sp(nc-1)}=0$`,`$${b}x-${a}y${sp(nc)}=0$`,`$${a}x-${b}y${sp(nc)}=0$`],ci:0,ans,sa:ans.replace(/\$/g,''),sol:`평행하므로 $${a}x+${b}y+k=0$ 꼴\n$(${px}, ${py})$ 대입: $${a}(${px})+${b}(${py})+k=0 \\Rightarrow k=${nc}$`,hints:["평행 조건: 기울기가 같다","직선의 계수를 그대로 유지하고 상수항만 조정"],terms:"직선의 평행",std:"[10공수02-03] 두 직선의 위치 관계"};
-    }
-   ],
-   4: [
-    ()=>{
-      const [a,b,r]=[ri(-3,3),ri(-3,3),ri(1,5)];
-      const ans = `$(x${sp(-a)})^2 + (y${sp(-b)})^2 = ${r*r}$`;
-      return {type:["객관식","단답형","서술형"],q:`중심이 $(${a}, ${b})$이고 반지름의 길이가 $${r}$인 원의 방정식을 구하시오.`,choices:[ans,`$(x${sp(a)})^2 + (y${sp(b)})^2 = ${r*r}$`,`$(x${sp(-a)})^2 + (y${sp(-b)})^2 = ${r}$`,`$(x${sp(-a)}) + (y${sp(-b)}) = ${r*r}$`,`$(x${sp(-a)})^2 - (y${sp(-b)})^2 = ${r*r}$`],ci:0,ans,sa:ans,sol:`원의 방정식 공식: $(x-a)^2 + (y-b)^2 = r^2$\n$(x-(${a}))^2 + (y-(${b}))^2 = ${r}^2$`,hints:["원의 공식: $(x-a)^2+(y-b)^2=r^2$","중심 좌표의 부호를 반대로 넣어주기"],terms:"원의 방정식",std:"[10공수02-04] 원의 방정식"};
-    }
-   ],
-   5: [
-    ()=>{
-      const [a,b,c]=[ri(3,4),ri(3,4),ri(-10,10)];
-      const [x0,y0]=[ri(-3,3),ri(-3,3)];
-      const num = Math.abs(a*x0 + b*y0 + c);
-      const den2 = a*a + b*b;
-      const den = Math.sqrt(den2);
-      if(!Number.isInteger(den)) return null;
-      const val = num/den;
-      const ans = `$${val}$`;
-      return {type:["객관식","단답형","서술형"],q:`점 $(${x0}, ${y0})$에서 직선 $${a}x+${b}y${sp(c)}=0$까지의 거리를 구하시오.`,choices:[ans,`$${val+1}$`,`$${Math.abs(val-1)}$`,`$\\sqrt{${num}}$`,`$\\dfrac{${num}}{${den2}}$`],ci:0,ans,sa:val,sol:`점과 직선 사이의 거리 공식:\n$d = \\dfrac{|ax_0+by_0+c|}{\\sqrt{a^2+b^2}} = \\dfrac{|${a}(${x0})+${b}(${y0})${sp(c)}|}{\\sqrt{${a}^2+${b}^2}} = \\dfrac{${num}}{${den}} = ${val}$`,hints:["공식: $\\dfrac{|ax_0+by_0+c|}{\\sqrt{a^2+b^2}}$","대입 후 절댓값 주의"],terms:"점과 직선 사이의 거리",std:"[10공수02-03] 점과 직선 사이의 거리"};
-    }
-   ]
-  },
+  "도형의 방정식": {},
   "집합과 명제": {
     1: [
       ()=>{
@@ -3802,12 +3865,40 @@ function makeWrongChoices(correct, wrongs){
 
 function pick(grade,sub,lv,type,n){
   const batchHashes = new Set();
+  const typeCache = pick._typeCache || (pick._typeCache = new WeakMap());
+  
+  // 경칩 보강: 생성기 함수가 유효한지, 해당 유형을 지원하는지 체크
+  const hasType = (g, t) => {
+    if(!g || typeof g !== 'function') return false;
+    if(Array.isArray(g._types)) return g._types.includes(t);
+    const cached = typeCache.get(g);
+    if(cached) return cached.includes(t);
+    try{
+      const x=g();
+      const types = (x && x.type && Array.isArray(x.type)) ? x.type : [];
+      typeCache.set(g, types);
+      return types.includes(t);
+    }catch(e){
+      typeCache.set(g, []);
+      return false;
+    }
+  };
+
+  // 경칩 수정: RAND_GENS[grade][sub][lv]가 배열이 아닌 유형별 객체일 경우 처리
+  const getGens = (g, s, l, t) => {
+    const unitData = (RAND_GENS[g] && RAND_GENS[g][s]) || {};
+    const lvData = unitData[l] || [];
+    // 만약 lvData가 배열이 아니고 { "OX형": [...] } 형태인 경우 대응
+    if (!Array.isArray(lvData)) {
+      if (lvData[t]) return Array.isArray(lvData[t]) ? lvData[t] : [lvData[t]];
+      return [];
+    }
+    return lvData.filter(gen => hasType(gen, t));
+  };
+
   // OX형 별도 처리
   if(type==='OX형'){
-    // RAND_GENS 에서 OX형 지원 여부 확인
-    const gens = (RAND_GENS[grade] && RAND_GENS[grade][sub] && [1,2,3,4,5].map(v=>RAND_GENS[grade][sub][v]||[]).flat().filter(g=>{
-      try{ const t=g(); return t && t.type && t.type.includes('OX형'); } catch(e){return false;}
-    })) || [];
+    const gens = getGens(grade, sub, lv, 'OX형');
 
     if(gens.length > 0 && Math.random() < 0.9) {
       return Array.from({length:n}, function(){
@@ -3816,138 +3907,191 @@ function pick(grade,sub,lv,type,n){
         while(tries < 10) {
           tries++;
           const gfn = gens[ri(0, gens.length-1)];
-          p = gfn();
-          const hash = _hashQ(p.q);
-          if(!batchHashes.has(hash) || tries >= 9) {
-            batchHashes.add(hash);
-            break;
-          }
+          try {
+            p = gfn();
+            if(!p) continue;
+            const hash = _hashQ(p.q);
+            if(!batchHashes.has(hash) || tries >= 9) {
+              batchHashes.add(hash);
+              break;
+            }
+          } catch(e) { continue; }
         }
         return {prob:p, sCh:['O','X'], sCi:p.ci};
       });
     }
 
-    const oxPool=(OX_BANK[grade]&&OX_BANK[grade][sub])||[];
-    // 단원 없으면 해당 학년 전체에서 가져오기
-    let pool=oxPool.length>0?oxPool:Object.values(OX_BANK[grade]||{}).flat();
+    const gradeBank = OX_BANK[grade];
+    if (!gradeBank) return [];
+    const unitData = gradeBank[sub];
+    if (!unitData) return [];
+    
+    let pool = [];
+    if (Array.isArray(unitData)) {
+      pool = unitData; // 단일 배열 구조인 경우
+    } else if (unitData[lv]) {
+      pool = unitData[lv]; // 레벨별 객체 구조인 경우
+    }
+    
     if(!pool.length) return [];
     return Array.from({length:n},function(){
       let tries = 0, p;
       while(tries < 10){
         tries++;
         p=pool[ri(0,pool.length-1)];
+        if(!p) continue;
         const hash = _hashQ(p.q);
         if(!batchHashes.has(hash) || tries >= 9){
           batchHashes.add(hash);
           break;
         }
       }
-      return {prob:{q:p.q,ans:p.ans,sa:p.ans,sol:p.exp,hints:[p.exp],terms:'OX 개념',std:'개념 확인',type:['OX형'],choices:['O','X'],ci:p.ans==='O'?0:1},sCh:['O','X'],sCi:p.ans==='O'?0:1};
+      return {prob:{q:p.q,ans:p.ans,sa:p.ans,exp:p.exp,sol:p.exp,hints:[p.hint||p.exp],terms:p.terms||'OX 개념',std:p.std||'개념 확인',type:['OX형'],choices:['O','X'],ci:p.ans==='O'?0:1},sCh:['O','X'],sCi:p.ans==='O'?0:1};
     });
   }
 
-  const pool=(BANK[grade]&&BANK[grade][sub]&&BANK[grade][sub][lv]||[]).filter(p=>p.type.includes(type));
-  const gens=RAND_GENS[grade]&&RAND_GENS[grade][sub]&&RAND_GENS[grade][sub][lv]||[];
-  const gensByType=gens.filter(g=>{try{const t=g();return t&&t.type&&t.type.includes(type);}catch(e){return false;}});
+  const pool=(BANK[grade]&&BANK[grade][sub]&&BANK[grade][sub][lv]||[]).filter(p=>{
+     return p && p.type && p.type.includes(type);
+  });
+  const gensByType = getGens(grade, sub, lv, type);
 
-  return Array.from({length:n},function(_,i){
-    let prob;
-    if(gensByType.length>0 && Math.random()<0.85){
-      const ckey=_cacheKey(grade,sub,lv,type);
-      // 캐시에 없는 문제 우선 선택 (최대 10회 시도)
-      let tries=0;
-      while(tries<10){
-        tries++;
-        try{
-          const gfn=gensByType[ri(0,gensByType.length-1)];
-          const candidate=gfn();
-          const hash = _hashQ(candidate.q);
-          if(candidate&&candidate.q&&((!_wasSeen(ckey,candidate.q) && !batchHashes.has(hash))||tries>=9)){
-            prob=candidate; 
-            batchHashes.add(hash);
-            break;
-          }
-        }catch(e){ break; }
+  const out = [];
+  const pickUnique = (arr) => {
+    if(!arr || !arr.length) return null;
+    let candidate = null;
+    for(let t=0;t<3;t++){
+      candidate = arr[ri(0,arr.length-1)];
+      if(!candidate) continue;
+      const qText = typeof candidate === 'function' ? null : candidate.q;
+      if(qText) {
+        const h = _hashQ(qText);
+        if(!batchHashes.has(h) || t===2){
+          batchHashes.add(h);
+          return candidate;
+        }
+      } else {
+        return candidate; // function인 경우 나중에 처리
       }
-      if(!prob) try{prob=gensByType[ri(0,gensByType.length-1)]();}catch(e){}
     }
+    return candidate;
+  };
+
+  for(let i=0;i<n;i++){
+    let prob = null;
+
+    if(gensByType.length && Math.random()<0.85){
+      const g = pickUnique(gensByType);
+      if(typeof g === 'function'){
+        try{ 
+          prob = g(); 
+          if(prob) batchHashes.add(_hashQ(prob.q));
+        }catch(e){ prob = null; }
+      }
+    }
+
     if(!prob){
-      if(!pool.length)return null;
-      let tries = 0;
-      while(tries < 10) {
-        tries++;
-        prob=pool[ri(0,pool.length-1)];
-        const hash = _hashQ(prob.q);
-        if(!batchHashes.has(hash) || tries >= 9) {
-          batchHashes.add(hash);
-          break;
-        }
-      }
+      prob = pickUnique(pool);
     }
-    // 수식 클린업 + 중복 재제거
-    if(prob && prob.q){
-      prob=Object.assign({},prob);
-      prob.q=cleanLatex(prob.q);
-      if(prob.ans) prob.ans=cleanLatex(prob.ans);
-      if(prob.sa) prob.sa=cleanLatex(prob.sa);
-      if(prob.choices&&prob.choices.length){
-        // cleanLatex 적용
-        prob.choices=prob.choices.map(cleanLatex);
-        // cleanLatex 후 중복 + 정답과 동일한 오답 재제거
-        const normFn=w=>String(w)
-          .replace(/\$/g,'')          // $ 제거
-          .replace(/\\[a-zA-Z]+/g,'') // LaTeX 명령어 제거 (\dfrac, \sqrt 등)
-          .replace(/[{} ]/g,'')        // 중괄호, 공백 제거
-          .replace(/\s+/g,'')
-          .toLowerCase()
-          .trim();
-        const normAns=normFn(prob.choices[prob.ci]??prob.ans);
-        const seen=new Set([normAns]);
-        const fixed=[prob.choices[prob.ci]]; // 정답 먼저
-        prob.choices.forEach((ch,i)=>{
-          if(i===prob.ci) return;
-          const n=normFn(ch);
-          if(!n||n==='nan'||n==='undefined'||seen.has(n)) return;
-          if(n==='0'&&normAns==='0') return; // 정답이 0이면 오답에 0 제거
-          seen.add(n);
-          fixed.push(ch);
-        });
-        // 보기 부족 시 안전한 숫자 보완 (항상 5지선다를 강요하지 않고 3~4지로 축소)
-        const targetLen=fixed.length>=3?4:3;
-        let fillTry=0;
-        while(fixed.length<targetLen && fillTry<30){
-          fillTry++;
-          const nums=(prob.ans||'').replace(/[^\d.\-]/g,' ').trim().match(/-?\d+\.?\d*/g);
-          const base=nums?+nums[0]:NaN;
-          let cand;
-          if(!isNaN(base)&&Math.abs(base)<10000){
-            const offsets=[2,-2,3,-3,5,-5,4,-4,6,8,10,12,15,20,1,-1,7,9,11,13,16,25,30,-6,-8];
-            const off=offsets[(fillTry-1)%offsets.length];
-            cand='$'+(base+off)+'$';
-          }else{
-            cand='$'+(fillTry*4+1)+'$';
-          }
-          const cn=normFn(cand);
-          // 정답이 아니라면 "4"가 오답 보정에서 과하게 노출되는 걸 완화
-          if(cn&&!seen.has(cn) && !(cn==='4' && normAns!=='4')){
-            seen.add(cn);
-            fixed.push(cand);
-          }
-        }
+    
+    if((!prob || !prob.q) && gensByType.length){
+      try{
+        const g = gensByType[ri(0,gensByType.length-1)];
+        prob = g && g();
+      }catch(e){ prob = null; }
+    }
+    if((!prob || !prob.q) && pool.length){
+      prob = pool[ri(0,pool.length-1)];
+    }
+    if(!prob || !prob.q) continue;
 
-        prob.ci=0; // 정답은 항상 fixed[0]
-        prob.choices=fixed;
-      }
+    prob = Object.assign({}, prob);
+    prob.q = cleanLatex(prob.q);
+    if(prob.ans) prob.ans = cleanLatex(prob.ans);
+    if(prob.sa) prob.sa = cleanLatex(prob.sa);
+    if(prob.choices && prob.choices.length){
+      prob.choices = prob.choices.map(cleanLatex);
     }
+
     let sCh=[],sCi=-1;
     if(type==='객관식'&&prob.choices&&prob.choices.length){
       const si=shuf(prob.choices.map(function(_,j){return j;}));
       sCh=si.map(function(j){return prob.choices[j];});
       sCi=si.indexOf(prob.ci);
     }
-    if(prob&&prob.q) _markSeen(_cacheKey(grade,sub,lv,type), prob.q);
-    return {prob:prob,sCh:sCh,sCi:sCi};
-  }).filter(Boolean);
+    out.push({prob:prob,sCh:sCh,sCi:sCi});
+  }
+
+  while(out.length < n){
+    let prob = null;
+    if(gensByType.length){
+      try{
+        const g = gensByType[ri(0,gensByType.length-1)];
+        prob = g && g();
+      }catch(e){ prob = null; }
+    }
+    if((!prob || !prob.q) && pool.length){
+      prob = pool[ri(0,pool.length-1)];
+    }
+    if(!prob || !prob.q) break;
+    prob = Object.assign({}, prob);
+    prob.q = cleanLatex(prob.q);
+    if(prob.ans) prob.ans = cleanLatex(prob.ans);
+    if(prob.sa) prob.sa = cleanLatex(prob.sa);
+    if(prob.choices && prob.choices.length) prob.choices = prob.choices.map(cleanLatex);
+    let sCh=[],sCi=-1;
+    if(type==='객관식'&&prob.choices&&prob.choices.length){
+      const si=shuf(prob.choices.map(function(_,j){return j;}));
+      sCh=si.map(function(j){return prob.choices[j];});
+      sCi=si.indexOf(prob.ci);
+    }
+    out.push({prob:prob,sCh:sCh,sCi:sCi});
+  }
+  return out;
+}
+
+// ─── 배치 내부 중복 제거 (한 번 생성 세트 기준) ───
+function ensureUniqueBatchProblems(problems, st, opts){
+  opts = opts || {};
+  const seen = new Set();
+  const uniq = [];
+  (problems || []).forEach(function(item){
+    if(!item || !item.prob || !item.prob.q) return;
+    const h = _hashQ(item.prob.q);
+    if(seen.has(h)) return;
+    seen.add(h);
+    uniq.push(item);
+  });
+  if(uniq.length >= st.cnt) return uniq.slice(0, st.cnt);
+
+  const examTypes = ['객관식','OX형','단답형','서술형'];
+  const units = (opts.units && opts.units.length)
+    ? opts.units
+    : (opts.mixUnits && opts.mixUnits.length)
+      ? opts.mixUnits
+      : [st.sub];
+
+  let guard = 0;
+  while(uniq.length < st.cnt && guard < 400){
+    guard++;
+    let extra = [];
+    if(opts.examMode){
+      const sub = units[ri(0, units.length - 1)];
+      const typ = examTypes[ri(0, examTypes.length - 1)];
+      extra = pick(st.grade, sub, st.lv, typ, 1);
+    }else if(opts.mixMode){
+      const sub = units[ri(0, units.length - 1)];
+      extra = pick(st.grade, sub, st.lv, st.type, 1);
+    }else{
+      extra = pick(st.grade, st.sub, st.lv, st.type, 1);
+    }
+    if(!extra || !extra.length || !extra[0] || !extra[0].prob || !extra[0].prob.q) continue;
+    const cand = extra[0];
+    const h = _hashQ(cand.prob.q);
+    if(seen.has(h)) continue;
+    seen.add(h);
+    uniq.push(cand);
+  }
+  return uniq.slice(0, st.cnt);
 }
 
 // ─── 단원 혼합 출제 ───
@@ -4435,6 +4579,7 @@ document.getElementById('genBtn').addEventListener('click',function(){
     const extra=shuf(all.filter(p=>!selected.includes(p)));
     while(selected.length<st.cnt && extra.length) selected.push(extra.shift());
     problems=shuf(selected).slice(0,st.cnt);
+    problems = ensureUniqueBatchProblems(problems, st, {examMode:true, units:units});
     // 점수 계산 및 할당
     const scoreInfo=getExamScores(st.cnt);
     const oxIdx=[],mcIdx=[],saIdx=[],esIdx=[];
@@ -4456,10 +4601,12 @@ document.getElementById('genBtn').addEventListener('click',function(){
       all=all.concat(ps);
     });
     problems=shuf(all).slice(0,st.cnt);
+    problems = ensureUniqueBatchProblems(problems, st, {mixMode:true, mixUnits:pick2});
     // 혼합된 단원 이름 저장
     problems._mixLabel='혼합 ('+pick2.join('·')+')';
   }else{
     problems=pick(st.grade,st.sub,st.lv,st.type,st.cnt);
+    problems = ensureUniqueBatchProblems(problems, st, {});
   }
 
   pst=problems.map(function(){return {picked:-1,submitted:false,isOk:null,userText:''};});
@@ -4835,4 +4982,6 @@ function toggleTheme(){
     <button class="wn-clear" onclick="wnDeleteSel()">문항 삭제</button>
   </div>
 </div>
+<script src="data/g1/math1/matrices.js"></script>
+<script src="data/g1/math2/geometry.js"></script>
 </body>
