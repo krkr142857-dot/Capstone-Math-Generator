@@ -1182,7 +1182,6 @@ const HIGH_BANK = {
     {type:["객관식","단답형","서술형"],q:"$\\lim_{n\\to\\infty}\\dfrac{2n+1}{n+3}$의 값을 구하시오.",choices:["$2$","$1$","$3$","$0$","$\\infty$"],ci:0,ans:"$2$",sa:"2",sol:"분자·분모를 $n$으로 나누면 $\\dfrac{2+1/n}{1+3/n}\\to2$",hints:["분자·분모를 $n$으로 나누기","$1/n\\to0$","최고차항 계수의 비"],terms:"무한대 극한",std:"[12미적분-01-01] 수열의 극한"}
    ],
    2:[
-    {type:["객관식","단답형","서술형"],q:"$\\lim_{n\\to\\infty}\\dfrac{n^2+3n}{2n^2-1}$의 값을 구하시오.",choices:["$\\dfrac{1}{2}$","$1$","$2$","$0$","$3$"],ci:0,ans:"$\\dfrac{1}{2}$",sa:"1/2",sol:"최고차항 계수의 비: $\\dfrac{1}{2}$",hints:["분자·분모를 $n^2$으로 나누기","$n^2$ 계수 비교","$1/2$"],terms:"무한대 극한",std:"[12미적분-01-01] 수열의 극한"},
     {type:["객관식","단답형","서술형"],q:"$|r|<1$이면 $\\lim_{n\\to\\infty}r^n$의 값을 구하시오.",choices:["$0$","$1$","$-1$","$\\infty$","$r$"],ci:0,ans:"$0$",sa:"0",sol:"$|r|<1$이면 $r^n\\to0$",hints:["예: $r=0.5$이면 $0.5^n\\to0$","$|r|<1$ 조건","$\\to0$"],terms:"등비수열의 수렴",std:"[12미적분-01-02] 등비수열의 수렴"}
    ],
    3:[
@@ -1556,30 +1555,30 @@ const MKB = [
   [{l:'x',v:'x',c:'mk-v'},{l:'y',v:'y',c:'mk-v'},{l:'z',v:'z',c:'mk-v'},{l:'k',v:'k',c:'mk-v'},{l:'m',v:'m',c:'mk-v'},{l:'n',v:'n',c:'mk-v'}],
   [{l:'a',v:'a',c:'mk-v'},{l:'b',v:'b',c:'mk-v'},{l:'c',v:'c',c:'mk-v'},{l:'d',v:'d',c:'mk-v'},{l:'←',v:'\\Leftarrow ',c:'mk-o'},{l:'→',v:'\\Rightarrow ',c:'mk-o'}],
   [{l:'xⁿ',v:'^{}',o:-1,c:'mk-p'},{l:'∩',v:'\\cap ',c:'mk-o'},{l:'∪',v:'\\cup ',c:'mk-o'},{l:'∅',v:'\\emptyset ',c:'mk-o'},{l:'⊂',v:'\\subset ',c:'mk-o'},{l:'∈',v:'\\in ',c:'mk-o'}],
-  [{l:'Σ',v:'\\sum_{n=}^{}',o:-4,c:'mk-f'},{l:'lim',v:'\\lim_{n\\to }',c:'mk-f'},{l:'∫',v:'\\int_{}^{}',o:-4,c:'mk-f'},{l:'∞',v:'\\infty ',c:'mk-v'},{l:'(',v:'()',o:-1,c:'mk-o'},{l:')',v:')',c:'mk-o'}],
+  [{l:'Σ',v:'\\sum_{n=1}^{}',o:-4,c:'mk-f'},{l:'lim',v:'\\lim_{n\\to }',o:-1,c:'mk-f'},{l:'∫',v:'\\int_{}^{}',o:-4,c:'mk-f'},{l:'∞',v:'\\infty ',c:'mk-v'},{l:'(',v:'()',o:-1,c:'mk-o'},{l:')',v:')',c:'mk-o'}],
   [{l:'√',v:'\\sqrt{}',o:-1,c:'mk-f'},{l:'e',v:'e^{}',o:-1,c:'mk-f'},{l:'ln',v:'\\ln(',o:0,c:'mk-f'},{l:'log',v:'\\log_{}()',o:-3,c:'mk-f'},{l:'{',v:'{}',o:-1,c:'mk-o'},{l:'}',v:'}',c:'mk-o'}],
   [{l:'sin',v:'\\sin(',o:0,c:'mk-f'},{l:'cos',v:'\\cos(',o:0,c:'mk-f'},{l:'tan',v:'\\tan(',o:0,c:'mk-f'},{l:'°',v:'^\\circ ',c:'mk-p'},{l:'θ',v:'\\theta ',c:'mk-v'},{l:'π',v:'\\pi ',c:'mk-v'}],
   [{l:'7',v:'7',c:'mk-n'},{l:'8',v:'8',c:'mk-n'},{l:'9',v:'9',c:'mk-n'},{l:'+',v:'+',c:'mk-o'},{l:'-',v:'-',c:'mk-o'},{l:'=',v:'=',c:'mk-o'}],
   [{l:'4',v:'4',c:'mk-n'},{l:'5',v:'5',c:'mk-n'},{l:'6',v:'6',c:'mk-n'},{l:'×',v:'\\times ',c:'mk-o'},{l:'÷',v:'\\div ',c:'mk-o'},{l:'≠',v:'\\neq ',c:'mk-o'}],
   [{l:'1',v:'1',c:'mk-n'},{l:'2',v:'2',c:'mk-n'},{l:'3',v:'3',c:'mk-n'},{l:'<',v:'<',c:'mk-o'},{l:'>',v:'>',c:'mk-o'},{l:'±',v:'\\pm ',c:'mk-o'}],
-  [{l:',',v:',',c:'mk-n'},{l:'0',v:'0',c:'mk-n'},{l:'.',v:'.',c:'mk-n'},{l:'≤',v:'\\leq ',c:'mk-o'},{l:'≥',v:'\\geq ',c:'mk-o'},{l:'|x|',v:'\\left|{}\right|',o:-8,c:'mk-p'}],
+  [{l:',',v:',',c:'mk-n'},{l:'0',v:'0',c:'mk-n'},{l:'.',v:'.',c:'mk-n'},{l:'≤',v:'\\leq ',c:'mk-o'},{l:'≥',v:'\\geq ',c:'mk-o'},{l:'|x|',v:'\\left|{}\\right|',o:-8,c:'mk-p'}],
   [{l:'∴',v:'\\therefore ',c:'mk-o'},{l:'이전',act:'prev',c:'mk-v',t:'이전'},{l:'다음',act:'next',c:'mk-v',t:'다음'},{l:'↵',v:'\n',c:'mk-n'},{l:'⌫',act:'back',c:'mk-c'},{l:'AC',act:'clear',c:'mk-c',html:true}]
 ];
 
 
 
 const MATH_EXP = [
-  [{l:'xⁿ',v:'^{}',o:-1,c:'mk-p',t:'제곱'},{l:'√',v:'\\sqrt{}',o:-1,c:'mk-f',t:'루트'},{l:'frac',v:'\\frac{}{}',o:-3,c:'mk-f',t:'분수'},{l:'ln',v:'\\ln ',c:'mk-f',t:'자연로그'},{l:'log',v:'\\log_{ }',o:-2,c:'mk-f',t:'로그'},{l:'e',v:'e^{}',o:-1,c:'mk-f',t:'자연상수'},{l:'∞',v:'\\infty ',c:'mk-v',t:'무한대'},{l:'!',v:'!',c:'mk-o',t:'팩토리얼'}],
-  [{l:'Σ',v:'\\sum_{n=}^{}',o:-4,c:'mk-f',t:'시그마'},{l:'lim',v:'\\lim_{n\\to }',c:'mk-f',t:'극한(리미트)'},{l:'∫',v:'\\int_{}^{}',o:-4,c:'mk-f',t:'적분(인테그랄)'},{l:'f(x)',v:'f(x)',c:'mk-v',t:'함수'},{l:'f\'(x)',v:'f\'(x)',c:'mk-v',t:'도함수'},{l:'\'',v:'\'',c:'mk-o',t:'미분(프라임)'},{l:'g∘f',v:'g\\circ f',c:'mk-o',t:'합성함수'},{l:'∘',v:'\\circ ',c:'mk-o',t:'합성 기호'}],
+  [{l:'xⁿ',v:'^{}',o:-1,c:'mk-p',t:'제곱'},{l:'√',v:'\\sqrt{}',o:-1,c:'mk-f',t:'루트'},{l:'frac',v:'\\frac{}{}',o:-3,c:'mk-f',t:'분수'},{l:'ln',v:'\\ln()',o:-1,c:'mk-f',t:'자연로그'},{l:'log',v:'\\log_{}{}',o:-3,c:'mk-f',t:'로그'},{l:'e',v:'e^{}',o:-1,c:'mk-f',t:'자연상수'},{l:'∞',v:'\\infty ',c:'mk-v',t:'무한대'},{l:'!',v:'!',c:'mk-o',t:'팩토리얼'}],
+  [{l:'Σ',v:'\\sum_{n=1}^{}',o:-4,c:'mk-f',t:'시그마'},{l:'lim',v:'\\lim_{n\\to }',o:-1,c:'mk-f',t:'극한(리미트)'},{l:'∫',v:'\\int_{}^{}',o:-4,c:'mk-f',t:'적분(인테그랄)'},{l:'f(x)',v:'f(x)',c:'mk-v',t:'함수'},{l:'f\'(x)',v:'f\'(x)',c:'mk-v',t:'도함수'},{l:'\'',v:'\'',c:'mk-o',t:'미분(프라임)'},{l:'g∘f',v:'g\\circ f',o:-6,c:'mk-o',t:'합성함수'},{l:'∘',v:'\\circ ',c:'mk-o',t:'합성 기호'}],
   [{l:'sin',v:'\\sin(',o:0,c:'mk-f',t:'사인'},{l:'cos',v:'\\cos(',o:0,c:'mk-f',t:'코사인'},{l:'tan',v:'\\tan(',o:0,c:'mk-f',t:'탄젠트'},{l:'θ',v:'\\theta ',c:'mk-v',t:'세타'},{l:'π',v:'\\pi ',c:'mk-v',t:'파이'},{l:'°',v:'^\\circ ',c:'mk-p',t:'각도'},{l:'·',v:'\\cdot ',c:'mk-o',t:'내적(가운데 점)'},{l:'<span style="display:inline-flex;flex-direction:column;align-items:center;line-height:0.6;"><span style="font-size:9px;">→</span><span>□</span></span>',v:'\\vec{}',o:-1,c:'mk-o',t:'벡터',html:true}],
   [{l:'∠',v:'\\angle ',c:'mk-o',t:'각'},{l:'⊥',v:'\\perp ',c:'mk-o',t:'수직'},{l:'△',v:'\\triangle ',c:'mk-o',t:'삼각형'},{l:'□',v:'\\square ',c:'mk-o',t:'사각형'},{l:'≡',v:'\\equiv ',c:'mk-o',t:'합동'},{l:'←',v:'\\leftarrow ',c:'mk-v',t:'왼쪽 화살표'},{l:'↔',v:'\\Leftrightarrow ',c:'mk-v',t:'필요충분'},{l:'→',v:'\\rightarrow ',c:'mk-v',t:'오른쪽 화살표'}],
   [{l:'∩',v:'\\cap ',c:'mk-o',t:'교집합'},{l:'∪',v:'\\cup ',c:'mk-o',t:'합집합'},{l:'∅',v:'\\emptyset ',c:'mk-o',t:'공집합'},{l:'<sup style="font-size:11px">c</sup>',v:'^{c}',c:'mk-o',t:'여집합',html:true},{l:'⊂',v:'\\subset ',c:'mk-o',t:'부분집합(포함)'},{l:'⊄',v:'\\not\\subset ',c:'mk-o',t:'포함아님'},{l:'∼',v:'\\sim ',c:'mk-o',t:'닮음'},{l:'≈',v:'\\approx ',c:'mk-o',t:'비슷함'}],
-  [{l:'P',v:'_{}P_{}',o:-5,c:'mk-o',t:'순열'},{l:'Π',v:'_{}\\Pi_{}',o:-7,c:'mk-o',t:'중복순열'},{l:'C',v:'_{}C_{}',o:-5,c:'mk-o',t:'조합'},{l:'H',v:'_{}H_{}',o:-5,c:'mk-o',t:'중복조합'},{l:'∈',v:'\\in ',c:'mk-o',t:'원소'},{l:'∉',v:'\\notin ',c:'mk-o',t:'원소아님'},{l:'2x2',v:'\\begin{pmatrix} {} & {} \\\\ {} & {} \\end{pmatrix}',o:-31,c:'mk-mat',t:'2x2행렬'},{l:'3x3',v:'\\begin{pmatrix} {} & {} & {} \\\\ {} & {} & {} \\\\ {} & {} & {} \\end{pmatrix}',o:-61,c:'mk-mat',t:'3x3행렬'}]
+  [{l:'P',v:'_{}P_{}',o:-5,c:'mk-o',t:'순열'},{l:'Π',v:'_{}\\Pi_{}',o:-7,c:'mk-o',t:'중복순열'},{l:'C',v:'_{}C_{}',o:-5,c:'mk-o',t:'조합'},{l:'H',v:'_{}H_{}',o:-5,c:'mk-o',t:'중복조합'},{l:'∈',v:'\\in ',c:'mk-o',t:'원소'},{l:'∉',v:'\\notin ',c:'mk-o',t:'원소아님'},{l:'2x2',v:'\\begin{pmatrix} {} & {} \\\\ {} & {} \\end{pmatrix}',o:-31,c:'mk-mat',t:'2x2행렬'},{l:'3x3',v:'\\begin{pmatrix} {} & {} & {} \\\\ {} & {} & {} \\\\ {} & {} & {} \\end{pmatrix}',o:-58,c:'mk-mat',t:'3x3행렬'}]
 ];
 
 const NUM_EXP = [
   [{l:'<',v:'<',c:'mk-o'},{l:'>',v:'>',c:'mk-o'},{l:'≤',v:'\\leq ',c:'mk-o'},{l:'≥',v:'\\geq ',c:'mk-o'},{l:'±',v:'\\pm ',c:'mk-o'}],
-  [{l:'|x|',v:'\\left|{}\right|',o:-8,c:'mk-p',t:'절댓값'},{l:'7',v:'7',c:'mk-n'},{l:'8',v:'8',c:'mk-n'},{l:'9',v:'9',c:'mk-n'},{l:'+',v:'+',c:'mk-o'}],
+  [{l:'|x|',v:'\\left|{}\\right|',o:-8,c:'mk-p',t:'절댓값'},{l:'7',v:'7',c:'mk-n'},{l:'8',v:'8',c:'mk-n'},{l:'9',v:'9',c:'mk-n'},{l:'+',v:'+',c:'mk-o'}],
   [{l:'%',v:'\\% ',c:'mk-o'},{l:'4',v:'4',c:'mk-n'},{l:'5',v:'5',c:'mk-n'},{l:'6',v:'6',c:'mk-n'},{l:'-',v:'-',c:'mk-o'}],
   [{l:'∵',v:'\\because ',c:'mk-o'},{l:'1',v:'1',c:'mk-n'},{l:'2',v:'2',c:'mk-n'},{l:'3',v:'3',c:'mk-n'},{l:'×',v:'\\times ',c:'mk-o'}],
   [{l:'∴',v:'\\therefore ',c:'mk-o'},{l:'0',v:'0',c:'mk-n'},{l:'=',v:'=',c:'mk-o'},{l:'≠',v:'\\neq ',c:'mk-o'},{l:'÷',v:'\\div ',c:'mk-o'}]
@@ -1741,7 +1740,7 @@ function mkNext() {
   const ta = mkInputEl;
   const v = ta.value;
   const p = ta.selectionEnd;
-  const tokens = ['\\sum_{n=','\\sum_{n=1','\\int_{','\\lim_{n\\to ','e^{','^{','\\sqrt{','\\ln(','\\log_{','\\sin(','\\cos(','\\tan(','\\left|{','\\Leftarrow ','\\Rightarrow ','\\cap ','\\cup ','\\emptyset ','\\subset ','\\in ','\\infty ','^\\circ ','\\theta ','\\pi ','\\times ','\\div ','\\neq ','\\leq ','\\geq ','\\therefore ','}\\right|','}^{','}(','}','C_{','P_{','H_{','\\Pi_{','& {}','\\\\ {}', ')']
+  const tokens = ['}^{','}{','}(','}\\right|','} & {','} \\\\ {','}P_{','}C_{','}H_{','}\\Pi_{','\\sum_{n=1','\\int_{','\\lim_{n\\to ','\\frac{','\\sqrt{','\\vec{','^{','_{','\\ln(','\\log_{','\\sin(','\\cos(','\\tan(','\\left|{','\\begin{pmatrix} {','} \\end{pmatrix}','}','P_{','C_{','H_{','\\Pi_{','& {','\\\\ {','& ', '\\\\ ', ')','\\Leftarrow ','\\Rightarrow ','\\cap ','\\cup ','\\emptyset ','\\subset ','\\in ','\\infty ','^\\circ ','\\theta ','\\pi ','\\times ','\\div ','\\neq ','\\leq ','\\geq ','\\therefore ','\\because ','\\pm ','\\% ','\\sim ','\\approx ','\\leftarrow ','\\Leftrightarrow ','\\rightarrow ','\\circ ','\\cdot ','\\angle ','\\perp ','\\triangle ','\\square ','\\equiv ','g']
   let bestIdx = -1;
   let bestLen = 0;
   for(let i=p; i<v.length; i++) {
@@ -1767,7 +1766,7 @@ function mkPrev() {
   const ta = mkInputEl;
   const v = ta.value;
   const p = ta.selectionStart;
-  const tokens = ['\\sum_{n=','\\sum_{n=1','\\int_{','\\lim_{n\\to ','e^{','^{','\\sqrt{','\\ln(','\\log_{','\\sin(','\\cos(','\\tan(','\\left|{','\\Leftarrow ','\\Rightarrow ','\\cap ','\\cup ','\\emptyset ','\\subset ','\\in ','\\infty ','^\\circ ','\\theta ','\\pi ','\\times ','\\div ','\\neq ','\\leq ','\\geq ','\\therefore ','}\\right|','}^{','}(','}',')'];
+  const tokens = ['}^{','}{','}(','}\\right|','} & {','} \\\\ {','}P_{','}C_{','}H_{','}\\Pi_{','\\sum_{n=1','\\int_{','\\lim_{n\\to ','\\frac{','\\sqrt{','\\vec{','^{','_{','\\ln(','\\log_{','\\sin(','\\cos(','\\tan(','\\left|{','\\begin{pmatrix} {','} \\end{pmatrix}','}','P_{','C_{','H_{','\\Pi_{','& {','\\\\ {','& ', '\\\\ ', ')','\\Leftarrow ','\\Rightarrow ','\\cap ','\\cup ','\\emptyset ','\\subset ','\\in ','\\infty ','^\\circ ','\\theta ','\\pi ','\\times ','\\div ','\\neq ','\\leq ','\\geq ','\\therefore ','\\because ','\\pm ','\\% ','\\sim ','\\approx ','\\leftarrow ','\\Leftrightarrow ','\\rightarrow ','\\circ ','\\cdot ','\\angle ','\\perp ','\\triangle ','\\square ','\\equiv ','g'];
   let bestIdx = -1;
   let bestToken = '';
   for(let i=p; i>=1; i--) {
