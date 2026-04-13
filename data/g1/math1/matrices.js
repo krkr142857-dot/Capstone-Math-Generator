@@ -20,7 +20,7 @@
   const STD_S17 = "[12공수1-17] 행렬의 곱셈의 뜻과 계산 원리를 이해하고, 관련 문제를 해결할 수 있다.";
 
   function makeOxStatic(q, ans, sol, hint, terms, std) {
-    return {
+            return {
       q: q,
       ans: ans,
       exp: sol,
@@ -755,8 +755,8 @@
         const det = a * d - b * c;
         const claimCancelable = Math.random() < 0.5;
         const tf = claimCancelable ? (det !== 0 ? "O" : "X") : (det === 0 ? "O" : "X");
-        return {
-          type: ["OX형"],
+            return {
+                type: ["OX형"],
           q: "행렬 $A=\\begin{pmatrix}" + a + "&" + b + "\\\\" + c + "&" + d + "\\end{pmatrix}$에서 $AB=AC$이면 " + (claimCancelable ? "항상 $B=C$" : "$B\\neq C$인 경우가 존재") + "한다.",
           choices: ["O", "X"], ci: tf === "O" ? 0 : 1, ans: tf, sa: tf,
           sol: "$\\det(A)=" + det + "이다. $\\det(A)\\neq0$이면 좌소거가 가능하여 $B=C$, $\\det(A)=0$이면 좌소거가 일반적으로 성립하지 않는다.",
@@ -873,7 +873,7 @@
       "1x2",
       "행렬의 크기는 (행의 수)$\\times$(열의 수)이다. 이 행렬은 행 1개, 열 2개이므로 $1\\times2$이다.",
       ["행 개수와 열 개수를 각각 센다.", "크기 표기 순서를 '(행)×(열)'로 적용한다."],
-      "행렬의 크기",
+                "행렬의 크기",
       STD_S15
     ),
     makeMc(
@@ -980,7 +980,7 @@
           String(ans),
           "제2행 제1열은 왼쪽 아래 칸의 성분이므로 $" + ans + "$이다.",
           ["제2행 제1열 위치를 정확히 찾는다.", "행·열 위치와 칸을 일치시켜 확인한다."],
-          "행렬의 성분",
+                "행렬의 성분",
           STD_S15
         );
       };
@@ -1024,7 +1024,7 @@
           "(" + x11 + "," + x12 + ";" + x21 + "," + x22 + ")",
           "대응 성분끼리 더하면 $A+B=\\begin{pmatrix}" + x11 + "&" + x12 + "\\\\" + x21 + "&" + x22 + "\\end{pmatrix}$이다.",
           ["대응 성분끼리 더한다.", "제1행 제1열부터 순서대로 계산한다."],
-          "행렬의 덧셈",
+                "행렬의 덧셈",
           STD_S15
         );
       };
@@ -1657,7 +1657,7 @@
     (function () {
       const g = function () {
         const a = riSafe(1, 5), b = riSafe(1, 5), c = riSafe(1, 5), d = riSafe(1, 5);
-        const det = a * d - b * c;
+            const det = a * d - b * c;
         const ans = det !== 0 ? "복호화 가능" : "복호화 불가";
         return makeMc(
           "암호화 행렬 $A=\\begin{pmatrix}" + a + "&" + b + "\\\\" + c + "&" + d + "\\end{pmatrix}$의 복호화 가능 여부를 고르시오.",
@@ -1893,7 +1893,7 @@
     (function () {
       const g = function () {
         const a = riSafe(1, 5), b = riSafe(1, 5), c = riSafe(1, 5), d = riSafe(1, 5);
-        const det = a * d - b * c;
+            const det = a * d - b * c;
         const isInv = det !== 0;
         return makeMc(
           "행렬 $A=\\begin{pmatrix}" + a + "&" + b + "\\\\" + c + "&" + d + "\\end{pmatrix}$에 대해 $AB=AC\\Rightarrow B=C$의 성립 여부를 고르시오.",
@@ -2134,7 +2134,7 @@
     (function () {
       const g = function () {
         const a = riSafe(1, 5), b = riSafe(1, 5), c = riSafe(1, 5), d = riSafe(1, 5);
-        const det = a * d - b * c;
+            const det = a * d - b * c;
         return makeSa(
           "행렬 $A=\\begin{pmatrix}" + a + "&" + b + "\\\\" + c + "&" + d + "\\end{pmatrix}$의 행렬식을 구하시오.",
           "$" + det + "$",
@@ -2323,7 +2323,7 @@
     (function () {
       const g = function () {
         const a = riSafe(1, 6), b = riSafe(1, 6), c = riSafe(1, 6), d = riSafe(1, 6);
-        const det = a * d - b * c;
+            const det = a * d - b * c;
         return makeSa(
           "암호화 행렬 $A=\\begin{pmatrix}" + a + "&" + b + "\\\\" + c + "&" + d + "\\end{pmatrix}$에 대해 $\\det(A^{-1})$를 구하시오. (단, 가역인 경우)",
           "$\\frac{1}{" + det + "}$",
