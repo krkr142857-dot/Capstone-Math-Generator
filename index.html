@@ -711,7 +711,7 @@ function handleStart() {
 // PROBLEM BANK
 // ═══════════════════════════════
 // ═══ OX 문제 은행 ═══
-const HIGH_OX_BANK = {
+var HIGH_OX_BANK = {
  "고1":{
   "다항식":[
    {q:"$(a+b)^2 = a^2+2ab+b^2$이다.",ans:"O",exp:"$(a+b)^2$을 전개하면 $a^2+2ab+b^2$이므로 참이다."},
@@ -1234,10 +1234,10 @@ const HIGH_BANK = {
   }
  }
 };
-const MID_BANK = JSON.parse(JSON.stringify(HIGH_BANK).replace(/고1/g, "중1").replace(/고2/g, "중2").replace(/고3/g, "중3"));
-let BANK = HIGH_BANK;
+var MID_BANK = JSON.parse(JSON.stringify(HIGH_BANK).replace(/고1/g, "중1").replace(/고2/g, "중2").replace(/고3/g, "중3"));
+var BANK = HIGH_BANK;
 
-const HIGH_GRADE_UNITS = {
+var HIGH_GRADE_UNITS = {
   "고1": [
     {
       subject: "공통수학1",
@@ -3759,7 +3759,7 @@ const HIGH_RAND_GENS = {
  }
 }
 const MID_RAND_GENS = HIGH_RAND_GENS;
-let RAND_GENS = HIGH_RAND_GENS;
+var RAND_GENS = HIGH_RAND_GENS;
 // 헬퍼 함수들
 function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 
@@ -4983,4 +4983,15 @@ function toggleTheme(){
 </div>
 <script src="data/g1/math1/matrices.js"></script>
 <script src="data/g1/math2/geometry.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (window.HIGH_OX_BANK && window.HIGH_OX_BANK["고1"] && window.HIGH_OX_BANK["고1"]["도형의 방정식"]) {
+        const logo = document.querySelector('.logo-ico');
+        if(logo) { logo.style.boxShadow = "0 0 15px #16a34a"; }
+        console.log("Geometry Data Linked.");
+      }
+    }, 1500);
+  });
+</script>
 </body>
