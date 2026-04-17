@@ -3081,7 +3081,7 @@ const HIGH_RAND_GENS = {
         return {type:["객관식","단답형","서술형"], q:`학급 학생 전체를 대상으로 두 동아리 $A, B$ 가입 여부를 조사하였다. $A$ 동아리에 가입한 학생이 ${na}명, B$ 동아리에 가입한 학생이 ${nb}명이고, 두 동아리에 모두 가입한 학생이 ${nab}명일 때, 적어도 한 동아리에 가입한 학생의 수를 구하시오.`, choices:makeWrongChoices(`${ans}`, [`${na+nb}`, `${ans-2}`, `${ans+5}`, `${na+nb+nab}`]).choices, ci:0, ans:`${ans}`, sa:ans, sol:`적어도 한 동아리에 가입한 학생 수는 합집합의 원소 개수입니다. $n(A \\cup B) = n(A) + n(B) - n(A \\cap B) = ${na} + ${nb} - ${nab} = ${ans}$`, hints:["포함-배제의 원리"], terms:"집합의 활용", std:"[10공수03-02] 집합의 연산"};
       },
       ()=>{
-        const q=`다음 중 집합의 연산 법칙으로 항상 옳은 것은?`;
+        const q=`다음 중 집합의 연산 법칙으로 항상 옳은 것을 고르시오.`;
         const choices=["$(A \\cup B)^c = A^c \\cap B^c$", "$A - B = A \\cup B^c$", "$A \\cap (B \\cup C) = (A \\cap B) \\cup C$", "$A - B = B - A$", "$A \\cup A^c = \\emptyset$"];
         return {type:["객관식"], q, choices, ci:0, ans:choices[0], sa:"1", sol:"드모르간의 법칙에 의해 $(A \\cup B)^c = A^c \\cap B^c$가 성립합니다.", hints:["드모르간의 법칙", "차집합의 성질: $A-B = A \\cap B^c$"], terms:"집합의 연산 법칙", std:"[10공수03-02] 집합의 연산"};
       }
@@ -3101,7 +3101,7 @@ const HIGH_RAND_GENS = {
       ()=>{
         const total=ri(40, 50); const soccer=ri(20, 30); const baseball=ri(15, 25); const neither=ri(5, 10);
         const both = soccer + baseball - (total - neither);
-        const q = `어느 반 학생 ${total}명 중 축구를 좋아하는 학생이 ${soccer}명, 야구를 좋아하는 학생이 ${baseball}명이다. 두 종목을 모두 좋아하지 않는 학생이 ${neither}명일 때, 두 종목을 모두 좋아하는 학생의 수는?`;
+        const q = `어느 반 학생 ${total}명 중 축구를 좋아하는 학생이 ${soccer}명, 야구를 좋아하는 학생이 ${baseball}명이다. 두 종목을 모두 좋아하지 않는 학생이 ${neither}명일 때, 두 종목을 모두 좋아하는 학생의 수를 구하시오.`;
         return {type:["객관식","단답형"], q, choices:makeWrongChoices(`${both}`, [`${both+5}`, `${both-3}`, `${neither}`, `${soccer-both}`]).choices, ci:0, ans:`${both}`, sa:both, sol:`$n(A \\cup B) = ${total} - ${neither} = ${total-neither}$\\n$n(A \\cap B) = n(A) + n(B) - n(A \\cup B) = ${soccer} + ${baseball} - ${total-neither} = ${both}$`, hints:["실생활 문장을 집합 기호로 변환"], terms:"집합의 활용", std:"[10공수03-02] 집합의 연산"};
       }
     ],
@@ -3845,7 +3845,10 @@ function cleanLatex(s){
 function makeWrongChoices(correct, wrongs){
   // 먼저 cleanLatex 적용
   const cc=cleanLatex(String(correct).trim());
-  const normW=w=>String(w).replace(/[\$\s\\]/g,'').replace(/[a-z]+/g,m=>m).toLowerCase();
+  
+  // 수정 포인트: 정규식에서 \\ 를 제거하여 LaTeX 명령어가 유지되도록 함
+  const normW=w=>String(w).replace(/[\$\s]/g,'').toLowerCase();
+  
   const normC=normW(cc);
   const seen=new Set([normC]);
   const clean=wrongs
@@ -4987,8 +4990,6 @@ function toggleTheme(){
   window.addEventListener('load', () => {
     setTimeout(() => {
       if (window.HIGH_OX_BANK && window.HIGH_OX_BANK["고1"] && window.HIGH_OX_BANK["고1"]["도형의 방정식"]) {
-        const logo = document.querySelector('.logo-ico');
-        if(logo) { logo.style.boxShadow = "0 0 15px #16a34a"; }
         console.log("Geometry Data Linked.");
       }
     }, 1500);
