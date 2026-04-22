@@ -595,7 +595,7 @@
         const a = riSafe(1, 4), b = riSafe(1, 4), c = riSafe(1, 4), d = riSafe(1, 4);
         const det = a * d - b * c;
         const canCancel = det !== 0;
-        const claim = Math.random() < 0.5 ? "AB=AC이면 B=C가 성립한다" : "AB=AC이어도 B\\neq C인 경우가 존재한다";
+        const claim = Math.random() < 0.5 ? "$AB=AC$이면 $B=C$가 성립한다" : "$AB=AC$이어도 $B\\neq C$인 경우가 존재한다";
         const tf = claim.includes("B=C") ? (canCancel ? "O" : "X") : (canCancel ? "X" : "O");
         return {
           type: ["OX형"],
