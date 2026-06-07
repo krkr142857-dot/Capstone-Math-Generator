@@ -4984,6 +4984,7 @@ function toggleTheme(){
     <button class="wn-clear" onclick="wnDeleteSel()">문항 삭제</button>
   </div>
 </div>
+<script src="data/g1/math1/polynomials.js"></script>
 <script src="data/g1/math1/matrices.js"></script>
 <script src="data/g1/math2/geometry.js"></script>
 <script>
@@ -4991,6 +4992,9 @@ function toggleTheme(){
     setTimeout(() => {
       if (window.HIGH_OX_BANK && window.HIGH_OX_BANK["고1"] && window.HIGH_OX_BANK["고1"]["도형의 방정식"]) {
         console.log("Geometry Data Linked.");
+      }
+      if (window.HIGH_OX_BANK && window.HIGH_OX_BANK["고1"] && window.HIGH_OX_BANK["고1"]["다항식"]) {
+        console.log("Polynomials Data Linked.");
       }
     }, 1500);
   });
