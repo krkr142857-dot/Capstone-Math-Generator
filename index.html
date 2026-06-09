@@ -1838,12 +1838,36 @@ function renderMixedLatex(text, el){
     s=s.replace(/x\^(\d+|\{[^}]+\})x(?!\^)/g,'x^$1\\cdot x');
     return s;
   }
+
+  // 다음 수식(LaTeX) 토큰이 시작되는 위치를 찾는 헬퍼 함수
+  function findNextMathIndex(s) {
+    let firstDollarOrBackslash = s.search(/[\$\\]/);
+    // 앞뒤 공백을 제외한 비한글 연속 구간 매칭
+    let regex = /[^\s\n가-힣ㄱ-ㅎㅏ-ㅣ$]+(?:[^\n가-힣ㄱ-ㅎㅏ-ㅣ$]*[^\s\n가-힣ㄱ-ㅎㅏ-ㅣ$]+)?/g;
+    let match;
+    let firstMathSeqIndex = -1;
+    while ((match = regex.exec(s)) !== null) {
+      let val = match[0];
+      // 영어 알파벳 변수, 거듭제곱(^), 밑줄(_), 중괄호({}), 혹은 연산자들이 포함되면 수식으로 봄
+      if (/[a-zA-Z\^_{}\\\+\-\*\/=<>]/.test(val) || /\b(dfrac|int)\b/.test(val)) {
+        firstMathSeqIndex = match.index;
+        break;
+      }
+    }
+    let indices = [];
+    if (firstDollarOrBackslash !== -1) indices.push(firstDollarOrBackslash);
+    if (firstMathSeqIndex !== -1) indices.push(firstMathSeqIndex);
+    
+    if (indices.length === 0) return s.length;
+    return Math.min(...indices);
+  }
+
   const hasKorean=/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(text);
   const hasDollar=/\$/.test(text);
 
   // $가 없고 한글도 없으면 → 전체를 LaTeX로 직접 렌더링 (수식 입력기 버튼으로 직접 입력한 경우)
   if(!hasKorean && !hasDollar){
-    try{el.innerHTML=katex.renderToString(text,{throwOnError:false,displayMode:false});return;}
+    try{el.innerHTML=katex.renderToString(normalizeKaTeXInput(text),{throwOnError:false,displayMode:false});return;}
     catch(e){}
   }
 
@@ -1854,19 +1878,23 @@ function renderMixedLatex(text, el){
     // 1) $...$ 블록 → $ 제거하고 LaTeX로 렌더링
     const m1=rest.match(/^\$([^$]+)\$/);
     if(m1){tokens.push({type:'latex',v:m1[1]});rest=rest.slice(m1[0].length);continue;}
-    // 2) LaTeX 명령어 덩어리 (한글·$·줄바꿈 이전까지)
-    const m2=rest.match(/^((?:\\[a-zA-Z]+(?:\{[^}]*\}|\[[^\]]*\])*|[^가-힣ㄱ-ㅎㅏ-ㅣ$\n])+)/);
-    if(m2&&(/\\[a-zA-Z]/.test(m2[1])||/[\^_{}]/.test(m2[1])||/\b(dfrac|int)\b/.test(m2[1]))){
+    // 2) LaTeX 명령어 덩어리 (앞뒤 공백 제외, 한글·$·줄바꿈 이전까지)
+    const m2=rest.match(/^([^\s가-힣ㄱ-ㅎㅏ-ㅣ$\n]+(?:[^가-힣ㄱ-ㅎㅏ-ㅣ$\n]*[^\s가-힣ㄱ-ㅎㅏ-ㅣ$\n]+)?)/);
+    if(m2&&(/[a-zA-Z\^_{}\\\+\-\*\/=<>]/.test(m2[1])||/\b(dfrac|int)\b/.test(m2[1]))){
       tokens.push({type:'latex',v:m2[1]});rest=rest.slice(m2[0].length);continue;}
-    // 3) 일반 텍스트 (한글, 숫자, 공백 등)
-    const m3=rest.match(/^[^$\\]*/);
-    if(m3&&m3[0].length>0){tokens.push({type:'text',v:m3[0]});rest=rest.slice(m3[0].length);continue;}
+    // 3) 일반 텍스트 (다음 수식 토큰 직전까지 매칭)
+    const nextMathIdx = findNextMathIndex(rest);
+    if(nextMathIdx > 0){
+      tokens.push({type:'text',v:rest.slice(0,nextMathIdx)});
+      rest=rest.slice(nextMathIdx);
+      continue;
+    }
     // 4) 남은 한 글자
     tokens.push({type:'text',v:rest[0]});rest=rest.slice(1);
   }
   el.innerHTML=tokens.map(t=>{
     if(t.type==='latex'){
-      try{return katex.renderToString(t.v,{throwOnError:false,displayMode:false});}
+      try{return katex.renderToString(normalizeKaTeXInput(t.v),{throwOnError:false,displayMode:false});}
       catch(e){return '<span>'+t.v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';}
     }
     return t.v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
